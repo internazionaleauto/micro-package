@@ -1,0 +1,12 @@
+{
+  "extends": "@tsconfig/recommended/tsconfig.json",
+  "include": [
+    "src",
+    "types",
+    "inft"
+  ],
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "Node"
+  }
+}
