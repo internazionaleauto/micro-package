@@ -22,7 +22,8 @@ jobs:
           registry-url: https://npm.pkg.github.com
 
       - name: Install deps and build (with cache)
-        uses: yarn install
+        # use: bahmutov/npm-install@v1
+        run: yarn install
 
       - name: Lint
         run: yarn lint
