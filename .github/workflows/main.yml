@@ -1,9 +1,9 @@
 name: CI for Node Package
 
-on: [push]
+on: [ push ]
 jobs:
   build:
-    name: Build, lint, and test on Node ${{ matrix.node }} and ${{ matrix.os }}
+    name: Build, lint, and test on ${{ matrix.os }} and finally Release
 
     runs-on: ${{ matrix.os }}
     strategy:
@@ -20,9 +20,9 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
           registry-url: https://npm.pkg.github.com
+          GITHUB_TOKEN: ${{secrets.GH_TOKEN}}
 
       - name: Install deps and build (with cache)
-        # use: bahmutov/npm-install@v1
         run: yarn install
 
       - name: Lint
@@ -34,6 +34,7 @@ jobs:
       - name: Build
         run: yarn build
 
-      - run: npm publish --access public
+      - name: Release
+        run: yarn publish
         env:
-          NODE_AUTH_TOKEN: ${{secrets.REGISTRY_TOKEN}}
+          GITHUB_TOKEN: ${{secrets.GH_TOKEN}}
