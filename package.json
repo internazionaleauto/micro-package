@@ -22,8 +22,7 @@
     "start": "dts watch",
     "build": "dts build",
     "prepare": "dts build",
-    "analyze": "size-limit --why",
-    "publish": "npm publish "
+    "analyze": "size-limit --why"
   },
   "publishConfig": {
     "access": "public"
