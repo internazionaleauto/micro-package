@@ -10,12 +10,12 @@ beforeAll(() => {
 
 beforeEach(() => {
   keys = {
-    PATH: 'cert',
     WHER_COMPANY: 'IT',
     COMPANY_UNITE: '12',
     COMPANY_STATE: 'PD',
     PASS_PHASES: '55068',
     COMPANY_LOCAL_NAME: 'Intil',
+    PATH: `${process.cwd()}/cert`,
     COMPANY_ORGANIZATION: 'Intil',
     COMPANY_EMAIL: 'web@intil.com',
     SERVER_URI: 'https://localhost:*',

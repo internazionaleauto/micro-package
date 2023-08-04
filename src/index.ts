@@ -18,12 +18,12 @@ export const getOrCreateSSHCertificate = ({
   // console.log("PATH", PATH);
   // console.log("__dirname", __dirname);
 
-  const certFolder = `${process.cwd()}/${PATH}`;
+  // const certFolder = `${process.cwd()}/${PATH}`;
 
-  console.log("certFolder", certFolder);
+  console.log("certFolder", PATH);
 
-  if (!existsSync(certFolder)) {
-    execSync(`mkdir ${certFolder}`);
+  if (!existsSync(PATH)) {
+    execSync(`mkdir ${PATH}`);
   };
 
   // console.log("keys", keys);
@@ -34,8 +34,8 @@ export const getOrCreateSSHCertificate = ({
     passphrase: ''
   };
 
-  const privateKeyPath = `${certFolder}/private_key.pem`;
-  const certificatePath = `${certFolder}/certificate.pem`;
+  const privateKeyPath = `${PATH}/private_key.pem`;
+  const certificatePath = `${PATH}/certificate.pem`;
 
   // const { PASS_PHASES, WHER_COMPANY, COMPANY_STATE, COMPANY_LOCAL_NAME, COMPANY_ORGANIZATION, COMPANY_UNITE, SERVER_URI, COMPANY_EMAIL } = keys;
 
