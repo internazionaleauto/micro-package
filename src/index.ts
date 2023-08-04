@@ -7,7 +7,7 @@ export const getOrCreateSSHCertificate = ({
   PATH,
   SERVER_URI,
   PASS_PHASES,
-  WHER_COMPANY,
+  WHERE_COMPANY,
   COMPANY_EMAIL,
   COMPANY_STATE,
   COMPANY_UNITE,
@@ -45,7 +45,7 @@ export const getOrCreateSSHCertificate = ({
     const { key, cert } = generateCertificate(
       SERVER_URI,
       PASS_PHASES,
-      WHER_COMPANY,
+      WHERE_COMPANY,
       COMPANY_STATE,
       COMPANY_EMAIL,
       COMPANY_UNITE,
@@ -84,7 +84,7 @@ export const getOrCreateSSHCertificate = ({
 const generateCertificate = (
   SERVER_URI: string,
   PASS_PHASES: string,
-  WHER_COMPANY: string,
+  WHERE_COMPANY: string,
   COMPANY_STATE: string,
   COMPANY_EMAIL: string,
   COMPANY_UNITE: string,
@@ -103,7 +103,7 @@ const generateCertificate = (
     );
 
     execSync(
-      `openssl req -new -key ${privateKeyPath} -x509 -out ${certificatePath} -passin pass:${PASS_PHASES} -subj "/C=${WHER_COMPANY}/ST=${COMPANY_STATE}/L=${COMPANY_LOCAL_NAME}/O=${COMPANY_ORGANIZATION}/OU=${COMPANY_UNITE}/CN=${SERVER_URI}/emailAddress=${COMPANY_EMAIL}" -days 365`
+      `openssl req -new -key ${privateKeyPath} -x509 -out ${certificatePath} -passin pass:${PASS_PHASES} -subj "/C=${WHERE_COMPANY}/ST=${COMPANY_STATE}/L=${COMPANY_LOCAL_NAME}/O=${COMPANY_ORGANIZATION}/OU=${COMPANY_UNITE}/CN=${SERVER_URI}/emailAddress=${COMPANY_EMAIL}" -days 365`
     );
 
     console.log('SSL certificate and key generated successfully.');

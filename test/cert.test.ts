@@ -10,7 +10,7 @@ beforeAll(() => {
 
 beforeEach(() => {
   keys = {
-    WHER_COMPANY: 'IT',
+    WHERE_COMPANY: 'IT',
     COMPANY_UNITE: '12',
     COMPANY_STATE: 'PD',
     PASS_PHASES: '55068',
