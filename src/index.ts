@@ -1,31 +1,38 @@
 import path from 'path';
 import { execSync } from 'child_process';
-import { CertificateInft } from '../inft';
+import { CertOptions, CertificateInft } from '../inft';
 import { readFileSync, existsSync } from 'fs';
 
-export const getOrCreateSSHCertificate = ({
+export const getOrCreateSSHCertificate = async ({
   PATH,
+  SERVER_URI,
   PASS_PHASES,
   WHER_COMPANY,
+  COMPANY_EMAIL,
   COMPANY_STATE,
+  COMPANY_UNITE,
   COMPANY_LOCAL_NAME,
   COMPANY_ORGANIZATION,
-  COMPANY_UNITE,
-  SERVER_URI,
-  COMPANY_EMAIL,
-}: CertificateInft): boolean => {
+}: CertificateInft): Promise<{ options: CertOptions }> => {
+
   // console.log("PATH", PATH);
   // console.log("__dirname", __dirname);
 
-  const certFolder = `${path.resolve(__dirname, '../')}/${PATH}`;
+  const certFolder = `${process.cwd()}/${PATH}`;
+
+  console.log("certFolder", certFolder);
 
   if (!existsSync(certFolder)) {
     execSync(`mkdir ${certFolder}`);
-  }
+  };
 
   // console.log("keys", keys);
 
-  const options: { [key: string]: unknown } = {};
+  const options: CertOptions = {
+    key: '',
+    cert: '',
+    passphrase: ''
+  };
 
   const privateKeyPath = `${certFolder}/private_key.pem`;
   const certificatePath = `${certFolder}/certificate.pem`;
@@ -34,21 +41,30 @@ export const getOrCreateSSHCertificate = ({
 
   // Check certificate is exist or not
   if (!existsSync(privateKeyPath) || !existsSync(certificatePath)) {
-    generateCertificate(
-      privateKeyPath,
-      certificatePath,
+
+    const { key, cert } = generateCertificate(
+      SERVER_URI,
       PASS_PHASES,
       WHER_COMPANY,
       COMPANY_STATE,
+      COMPANY_EMAIL,
+      COMPANY_UNITE,
+      privateKeyPath,
+      certificatePath,
       COMPANY_LOCAL_NAME,
       COMPANY_ORGANIZATION,
-      COMPANY_UNITE,
-      SERVER_URI,
-      COMPANY_EMAIL
     );
 
-    return false;
+    options['key'] = key;
+    options['cert'] = cert;
+    options['passphrase'] = PASS_PHASES;
+
+    return {
+      options
+    };
+
   } else {
+
     // Read the private key and certificate files
     const privateKey = readFileSync(privateKeyPath);
     const certificate = readFileSync(certificatePath);
@@ -57,22 +73,25 @@ export const getOrCreateSSHCertificate = ({
     options['cert'] = certificate;
     options['passphrase'] = PASS_PHASES;
 
-    return true;
+    return {
+      options
+    };
+
   }
 };
 
 // Generate a self-signed SSL certificate and key
 const generateCertificate = (
-  privateKeyPath: string,
-  certificatePath: string,
+  SERVER_URI: string,
   PASS_PHASES: string,
   WHER_COMPANY: string,
   COMPANY_STATE: string,
-  COMPANY_LOCAL_NAME: string,
-  COMPANY_ORGANIZATION: string,
+  COMPANY_EMAIL: string,
   COMPANY_UNITE: string,
-  SERVER_URI: string,
-  COMPANY_EMAIL: string
+  privateKeyPath: string,
+  certificatePath: string,
+  COMPANY_LOCAL_NAME: string,
+  COMPANY_ORGANIZATION: string
 ) => {
   try {
     // execSync('openssl req -x509 -nodes -newkey rsa:2048 -keyout private.key -out certificate.crt -days 365 -subj "/CN=localhost"');
@@ -88,6 +107,15 @@ const generateCertificate = (
     );
 
     console.log('SSL certificate and key generated successfully.');
+
+    // options['key'] = privateKey;
+    // options['cert'] = certificate;
+    // // options['passphrase'] = PASS_PHASES;
+
+    return {
+      key: readFileSync(privateKeyPath),
+      cert: readFileSync(certificatePath)
+    };
   } catch (err) {
     console.error('Failed to generate self-signed certificate:', err);
     process.exit(1);

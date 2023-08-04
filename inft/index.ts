@@ -9,3 +9,9 @@ export interface CertificateInft {
     COMPANY_LOCAL_NAME: string;
     COMPANY_ORGANIZATION: string;
 }
+
+export interface CertOptions {
+    passphrase: string
+    key: Buffer | string;
+    cert: Buffer | string;
+}
