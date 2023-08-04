@@ -3,7 +3,7 @@ import { execSync } from 'child_process';
 import { CertOptions, CertificateInft } from '../inft';
 import { readFileSync, existsSync } from 'fs';
 
-export const getOrCreateSSHCertificate = async ({
+export const getOrCreateSSHCertificate = ({
   PATH,
   SERVER_URI,
   PASS_PHASES,
@@ -13,7 +13,7 @@ export const getOrCreateSSHCertificate = async ({
   COMPANY_UNITE,
   COMPANY_LOCAL_NAME,
   COMPANY_ORGANIZATION,
-}: CertificateInft): Promise<{ options: CertOptions }> => {
+}: CertificateInft): { options: CertOptions } => {
 
   // console.log("PATH", PATH);
   // console.log("__dirname", __dirname);

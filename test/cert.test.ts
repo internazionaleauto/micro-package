@@ -1,24 +1,12 @@
-import path from 'path';
-import { existsSync } from 'fs';
 import { CertificateInft } from '../inft';
 import { getOrCreateSSHCertificate } from '../src';
-import { beforeAll, beforeEach, describe, expect, test } from '@jest/globals';
+import { jest, beforeAll, beforeEach, afterAll, describe, expect, test } from '@jest/globals';
 
 let keys: CertificateInft;
 
-// beforeAll(() => {
-//   keys = {
-//     PATH: 'cert',
-//     WHER_COMPANY: 'IT',
-//     COMPANY_UNITE: '12',
-//     COMPANY_STATE: 'PD',
-//     PASS_PHASES: '55068',
-//     COMPANY_LOCAL_NAME: 'Intil',
-//     COMPANY_ORGANIZATION: 'Intil',
-//     COMPANY_EMAIL: 'web@intil.com',
-//     SERVER_URI: 'https://localhost:*',
-//   };
-// });
+beforeAll(() => {
+  console.log("Start createing SSL Certificate");
+});
 
 beforeEach(() => {
   keys = {
@@ -36,7 +24,7 @@ beforeEach(() => {
 
 describe('Genarate or verify SSH certificate', () => {
 
-  test('Func: Verify SSH', async () => {
+  test('Func: Verify SSH', () => {
 
     // console.log("keys", keys);
     // const certFolder = `${process.cwd}/${keys.PATH}`;
@@ -44,7 +32,7 @@ describe('Genarate or verify SSH certificate', () => {
     // const privateKeyPath = `${certFolder}/private_key.pem`;
     // const certificatePath = `${certFolder}/certificate.pem`;
 
-    const { options } = await getOrCreateSSHCertificate(keys);
+    const { options } = getOrCreateSSHCertificate(keys);
 
     // console.log("options", options);
     const { cert, key, passphrase } = options;
@@ -67,3 +55,8 @@ describe('Genarate or verify SSH certificate', () => {
   //   });
   // }
 });
+
+afterAll((done) => {
+  jest.clearAllMocks();
+  done();
+})
