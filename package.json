@@ -17,12 +17,12 @@
   ],
   "scripts": {
     "commit": "git-cz",
-    "lint": "dts lint",
     "test": "dts test",
     "size": "size-limit",
     "start": "dts watch",
     "build": "dts build",
     "prepare": "dts build",
+    "lint": "dts lint --fix",
     "analyze": "size-limit --why",
     "semantic-release": "semantic-release",
     "acp": "npm run build && git add . && npm run commit && git push origin master"
@@ -46,7 +46,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "dts lint"
+      "pre-commit": "dts lint --fix"
     }
   },
   "prettier": {
