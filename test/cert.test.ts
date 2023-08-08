@@ -1,8 +1,8 @@
-import { CertificateInft } from '../inft';
+import { SSLData } from '../inft';
 import { getOrCreateSSHCertificate } from '../src';
 import { jest, beforeAll, beforeEach, afterAll, describe, expect, test } from '@jest/globals';
 
-let keys: CertificateInft;
+let keys: SSLData;
 
 beforeAll(() => {
   console.log("Start createing SSL Certificate");
@@ -10,15 +10,15 @@ beforeAll(() => {
 
 beforeEach(() => {
   keys = {
-    WHERE_COMPANY: 'IT',
-    COMPANY_UNITE: '12',
-    COMPANY_STATE: 'PD',
     PASS_PHASES: '55068',
-    COMPANY_LOCAL_NAME: 'Intil',
+    COMPANY_LOCALITY: 'IT',
+    COMPANY_STATE: 'Padova',
+    COUNTRY_TWO_LATTER: "IT",
+    UNITE_NAME: 'IT Department',
     PATH: `${process.cwd()}/cert`,
-    COMPANY_ORGANIZATION: 'Intil',
+    ORGANIZATION_NAME: 'Intil',
     COMPANY_EMAIL: 'web@intil.com',
-    SERVER_URI: 'https://localhost:*',
+    SSL_DOMAIN: 'https://localhost:*',
   };
 });
 

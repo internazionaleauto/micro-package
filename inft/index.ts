@@ -1,13 +1,15 @@
-export interface CertificateInft {
+export interface SSLData {
     PATH: string;
-    SERVER_URI: string;
+    SSL_DOMAIN: string;
+    UNITE_NAME: string;
     PASS_PHASES: string;
-    WHERE_COMPANY: string;
-    COMPANY_UNITE: string;
-    COMPANY_EMAIL: string;
     COMPANY_STATE: string;
-    COMPANY_LOCAL_NAME: string;
-    COMPANY_ORGANIZATION: string;
+    COMPANY_EMAIL: string;
+    privateKeyPath?: string;
+    certificatePath?: string;
+    COMPANY_LOCALITY: string;
+    ORGANIZATION_NAME: string;
+    COUNTRY_TWO_LATTER: string;
 }
 
 export interface CertOptions {
