@@ -9,7 +9,7 @@
   "engines": {
     "npm": "9.x",
     "yarn": "1.x",
-    "node": ">=20"
+    "node": ">=18"
   },
   "files": [
     "dist",
@@ -82,5 +82,8 @@
     "ts-jest": "^29.1.1",
     "tslib": "^2.6.0",
     "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "mongoose": "^7.5.2"
   }
 }

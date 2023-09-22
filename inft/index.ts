@@ -1,3 +1,5 @@
+import mongoose, { Document } from 'mongoose';
+
 export interface SSLData {
     PATH: string;
     SSL_DOMAIN: string;
@@ -16,4 +18,9 @@ export interface CertOptions {
     passphrase: string
     key: Buffer | string;
     cert: Buffer | string;
+}
+
+export interface HocDocument extends Document {
+    last_name: string;
+    customer_id: number;
 }
