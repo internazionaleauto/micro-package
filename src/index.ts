@@ -141,14 +141,14 @@ export class HocManager {
   async sorterHoc(): Promise<void> {
     try {
       const sortedDocs: HocDocument[] = await this.HocModel.find()
-        .sort({ last_name: 1 });
+        .sort({ last_name: 1 }); // O(n) = 1 - last contact
 
-      const existLastName = sortedDocs.filter((con) => con.last_name);
-      const notExistLastName = sortedDocs.filter((con) => !con.last_name);
+      const existLastName = sortedDocs.filter((con) => con.last_name); // O(n)  = 1 - last contact
+      const notExistLastName = sortedDocs.filter((con) => !con.last_name); // O(n)  = 1 - last contact
 
-      const contacts = [...existLastName, ...notExistLastName];
+      const contacts = [...existLastName, ...notExistLastName]; // O(1)
 
-      for (let i = 0; i < contacts.length; i++) {
+      for (let i = 0; i < contacts.length; i++) { // O(n)  = 1 - last contact
         contacts[i].customer_id = i + 1;
         await contacts[i].save();
       }
@@ -161,8 +161,8 @@ export class HocManager {
   async insertNewData(data: any): Promise<string | void> {
     try {
       const newData = new this.HocModel(data);
-      await newData.save();
-      await this.sorterHoc();
+      await newData.save(); // O(1)
+      await this.sorterHoc(); // O(n)
       return newData.last_name;
     } catch (err) {
       console.error('Error inserting new data:', err);
@@ -173,7 +173,7 @@ export class HocManager {
     try {
       // Remove the document by its _id
       await this.HocModel.findByIdAndRemove(documentId);
-      await this.sorterHoc(); // Re-sort after removal
+      await this.sorterHoc(); // O(n) Re-sort after removal
       return true;
     } catch (err) {
       console.error('Error removing document:', err);
